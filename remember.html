@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project LIMEN // ACCESS</title>
+
+  <!--
+    there are no hints here :)
+
+    you were never supposed to see this.
+
+    stop looking.
+
+    - e
+  -->
+
+  <style>
+    
+    body {
+      background-color: #0a0a0a;
+      color: #e0e0e0;
+      font-family: 'Courier New', monospace;
+    }
+
+    .terminal {
+      box-shadow: 0 0 20px rgba(0, 255, 200, 0.3);
+    }
+
+    .glitch-overlay {
+      background: repeating-linear-gradient(...);
+      animation: glitchMove 0.3s infinite;
+    }
+  </style>
+</head>
+
+  <!--
+404://echo.link.k13
+>
+fragment dropped.
+>
+found you again.
+-->
+
+<body>
+  <div class="glitch-overlay"></div>
+
+  <div class="terminal">
+    <div class="glitch-title">ACCESS NODE // VEIL_13</div>
+
+    <label>username:</label>
+    <input type="text" placeholder="[REDACTED]" disabled />
+
+    <label>password:</label>
+    <input id="passInput" type="password" placeholder="enter password..." />
+
+    <button onclick="checkPassword()">ACCESS</button>
+
+    <div id="error" class="error">ACCESS DENIED. FRACTURE TRACE NOT FOUND.</div>
+  </div>
+
+  
+  <audio id="whisper" src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Whispering.wav" preload="auto"></audio>
+
+  <script>
+    function checkPassword() {
+      const pass = document.getElementById('passInput').value.trim();
+      const correct = "veilfracture";
+
+      if (pass === correct) {
+        window.location.href = "level1.html";
+      } else {
+        document.getElementById('error').style.display = 'block';
+        document.getElementById('whisper').play();
+      }
+    }
+  </script>
+</body>
+</html>
