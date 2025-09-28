@@ -1,79 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Project LIMEN // ACCESS</title>
-
-  <!--
-    there are no hints here :)
-
-    you were never supposed to see this.
-
-    stop looking.
-
-    - e
-  -->
-
-  <style>
-    
-    body {
-      background-color: #0a0a0a;
-      color: #e0e0e0;
-      font-family: 'Courier New', monospace;
-    }
-
-    .terminal {
-      box-shadow: 0 0 20px rgba(0, 255, 200, 0.3);
-    }
-
-    .glitch-overlay {
-      background: repeating-linear-gradient(...);
-      animation: glitchMove 0.3s infinite;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome to Hell</title>
+<style>
+body {
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#000; /* black background */
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.window {
+  width:600px;
+  background:#1c1c1c;
+  border:2px solid #ff0000; /* red border */
+  border-radius:4px;
+  box-shadow:0 0 20px #0000ff; /* blue glow */
+  overflow:hidden;
+  animation: flicker 1.5s infinite alternate;
+}
+@keyframes flicker {
+  0% {box-shadow:0 0 20px #0000ff;}
+  50% {box-shadow:0 0 30px #ff0000;}
+  100% {box-shadow:0 0 25px #00f;}
+}
+.title-bar {
+  background:#333;
+  color:#fff;
+  padding:5px 10px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.title-bar .buttons span {
+  width:16px;
+  height:16px;
+  display:inline-block;
+  margin-left:4px;
+  border-radius:2px;
+}
+.close {background:#ff0000;}
+.minimize {background:#fff;}
+.maximize {background:#00f;}
+.file-area {
+  padding:10px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  background:#000;
+  min-height:300px;
+}
+.file {
+  width:100px;
+  height:100px;
+  background:#111;
+  border:1px solid #444;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#fff;
+  cursor:pointer;
+  font-size:12px;
+  text-align:center;
+  transition:0.1s all;
+}
+.file:hover {
+  background:#222;
+  border-color:#ff0000;
+  transform:scale(1.05);
+  color:#ff0000;
+}
+</style>
 </head>
-
-  <!--
-404://echo.link.k13
->
-fragment dropped.
->
-found you again.
--->
-
 <body>
-  <div class="glitch-overlay"></div>
-
-  <div class="terminal">
-    <div class="glitch-title">ACCESS NODE // VEIL_13</div>
-
-    <label>username:</label>
-    <input type="text" placeholder="[REDACTED]" disabled />
-
-    <label>password:</label>
-    <input id="passInput" type="password" placeholder="enter password..." />
-
-    <button onclick="checkPassword()">ACCESS</button>
-
-    <div id="error" class="error">ACCESS DENIED. FRACTURE TRACE NOT FOUND.</div>
+<div class="window">
+  <div class="title-bar">
+    <span>Files</span>
+    <div class="buttons">
+      <span class="minimize"></span>
+      <span class="maximize"></span>
+      <span class="close"></span>
+    </div>
   </div>
+  <div class="file-area" id="fileArea">
+    <div class="file" data-filename="file1.txt">file1.txt</div>
+    <div class="file" data-filename="file2.txt">file2.txt</div>
+    <div class="file" data-filename="file3.txt">file3.txt</div>
+  </div>
+</div>
 
-  
-  <audio id="whisper" src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Whispering.wav" preload="auto"></audio>
+<script>
+// Placeholder file content
+const fileContents = {
+  'file1.txt':'PLACEHOLDER CONTENT FOR FILE 1\nReplace this with your text.',
+  'file2.txt':'PLACEHOLDER CONTENT FOR FILE 2\nReplace this with your text.',
+  'file3.txt':'PLACEHOLDER CONTENT FOR FILE 3\nReplace this with your text.'
+};
 
-  <script>
-    function checkPassword() {
-      const pass = document.getElementById('passInput').value.trim();
-      const correct = "veilfracture";
-
-      if (pass === correct) {
-        window.location.href = "level1.html";
-      } else {
-        document.getElementById('error').style.display = 'block';
-        document.getElementById('whisper').play();
-      }
-    }
-  </script>
+document.querySelectorAll('.file').forEach(file=>{
+  file.addEventListener('click',()=>{
+    const name = file.dataset.filename;
+    const content = fileContents[name] || 'EMPTY FILE';
+    const blob = new Blob([content], {type:'text/plain'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = name;
+    a.click();
+    URL.revokeObjectURL(url);
+    // optional flash effect to show "opened"
+    file.style.borderColor='#00f';
+    setTimeout(()=>file.style.borderColor='#444',200);
+  });
+});
+</script>
 </body>
 </html>
+
+
